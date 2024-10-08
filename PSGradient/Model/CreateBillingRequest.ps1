@@ -37,7 +37,7 @@ function Initialize-PSCreateBillingRequest {
         [Parameter(Position = 2, ValueFromPipelineByPropertyName = $true)]
         [Decimal]
         ${UnitCount},
-        # This was added and will be deleted when regenerated. 
+        # This was added and will be deleted when regenerated.
         [String]
         ${UnitType}
     )
@@ -45,17 +45,15 @@ function Initialize-PSCreateBillingRequest {
     Process {
         'Creating PSCustomObject: PSGradient => PSCreateBillingRequest' | Write-Debug
         $PSBoundParameters | Out-DebugParameter | Write-Debug
-
         if ($null -eq $UnitCount) {
             throw "invalid value for 'UnitCount', 'UnitCount' cannot be null."
         }
 
         # This was added and will be deleted when SDK is regenerated
-        if ($attributes.ContainsKey('STORAGE_UNIT_TYPE') -and $UnitType -eq "bytes") {
+        if ($null -ne $attributes -and $attributes.ContainsKey('STORAGE_UNIT_TYPE') -and $UnitType -eq "bytes") {
             $UnitCount = Convert-BytesToUnit $attributes['STORAGE_UNIT_TYPE'] $UnitCount
         }
-        # End of code to be copied over when SDK is regenerated. 
-
+        # End of code to be copied over when SDK is regenerated.
 
         $PSO = [PSCustomObject]@{
             "clientOId" = ${ClientOId}
